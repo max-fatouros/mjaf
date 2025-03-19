@@ -31,6 +31,8 @@ dev = [
 mjaf = "mjaf.__main__:main"
 
 [project.urls]
+Homepage = "https://github.com/max-fatouros/mjaf"
+Issues = "https://github.com/max-fatouros/mjaf/issues"
 
 [tool.autopep8]
 # Let isort handle imports
