@@ -1,0 +1,14 @@
+*$py.class
+*.egg
+*.egg-info/
+*.py[cod]
+*.so
+.eggs/
+.idea/
+.ipynb_checkpoints
+.vscode/
+__pycache__/
+dist/
+eggs/
+logs/
+wheels/
