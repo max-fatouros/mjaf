@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from mjaf.logging._core import set_log_handlers
+from mjaf.logging._core import set_handlers
 
 __all__ = [
-    'set_log_handlers',
+    'set_handlers',
 ]

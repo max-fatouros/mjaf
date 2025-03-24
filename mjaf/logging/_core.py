@@ -78,7 +78,7 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-def set_log_handlers(
+def set_handlers(
     level: str = LOG_LEVEL,
     path: pathlib.Path | str | None = None,
     rotation_size: Annotated[int, 'MB'] = 10,
