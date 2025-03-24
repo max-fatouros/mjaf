@@ -4,7 +4,7 @@ import pathlib
 import sys
 from typing import Annotated
 
-from mjaf.utils.constants import LOG_LEVEL
+from mjaf._utils.constants import LOG_LEVEL
 
 log = logging.getLogger(__name__)
 
