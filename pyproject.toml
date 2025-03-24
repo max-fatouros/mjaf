@@ -14,12 +14,10 @@ classifiers = [
 ]
 dependencies = []
 description = "A collection of assorted utilites"
-dynamic = [
-    "version",
-]
 name = "mjaf"
 readme = "README.md"
 requires-python = ">=3.12"
+version = '0.0.1'
 
 [project.optional-dependencies]
 dev = [
@@ -47,9 +45,6 @@ multi_line_output = 3
 
 [tool.pytest.ini_options]
 pythonpath = "."
-
-[tool.setuptools.dynamic.version]
-attr = "mjaf.__version__"
 
 [tool.setuptools.packages.find]
 include = [
