@@ -8,9 +8,8 @@ from mjaf.utils.constants import LOG_LEVEL
 
 log = logging.getLogger(__name__)
 
+
 # TODO: add options to use this
-
-
 class Logger:
     """
     https://stackoverflow.com/questions/14906764/how-to-redirect-stdout-to-both-file-and-console-with-scripting
