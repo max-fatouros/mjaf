@@ -51,8 +51,8 @@ class CustomFormatter(logging.Formatter):
 
     def color_format(self, start_escape_code, end_escape_code):
         return (
-            f"%(asctime)s |1|"
-            f" {start_escape_code}%(levelname)-8s{end_escape_code}"
+            f"|0| %(asctime)s"
+            f" |1| {start_escape_code}%(levelname)-8s{end_escape_code}"
             f" |2| %(name)s"
             f" |3| %(module)s:%(lineno)s %(funcName)s :: %(message)s"
         )
