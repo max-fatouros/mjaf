@@ -110,12 +110,14 @@ def reset_loggers_recursively(parent_logger_name):
 
 def set_handlers(
     logger_name: str = '',
-    level: str = LOG_LEVEL,
+    level: str | None = None,
     path: pathlib.Path | str | None = None,
     rotation_size: Annotated[int, 'MB'] = 10,
     rotations: int = 5,
     log_print_statements=False,
 ):
+
+    level = level or LOG_LEVEL
 
     logger = logging.getLogger(logger_name)
 
