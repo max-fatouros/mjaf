@@ -79,6 +79,7 @@ class CustomFormatter(logging.Formatter):
 
 
 def set_handlers(
+    logger_name: str = '',
     level: str = LOG_LEVEL,
     path: pathlib.Path | str | None = None,
     rotation_size: Annotated[int, 'MB'] = 10,
@@ -86,7 +87,7 @@ def set_handlers(
     log_print_statements=False,
 ):
 
-    root_logger = logging.getLogger()
+    logger = logging.getLogger(logger_name)
 
     if path is not None:
         path = pathlib.Path(path).resolve()
@@ -101,7 +102,7 @@ def set_handlers(
             CustomFormatter(do_color=False),
         )
 
-        root_logger.addHandler(file_handler)
+        logger.addHandler(file_handler)
 
     # >>> Prints to terminal
     stream_handler = logging.StreamHandler()
@@ -111,10 +112,10 @@ def set_handlers(
     )
     # <<<
 
-    root_logger.addHandler(stream_handler)
+    logger.addHandler(stream_handler)
 
     # "specifies the lowest-severity log message a logger will handle"
-    root_logger.setLevel(level)
+    logger.setLevel(level)
 
     log.info('Logging configured successfully')
     log.info(f'{level=}')
@@ -126,7 +127,7 @@ def set_handlers(
             sys.__excepthook__(exc_type, exc_value, exc_traceback)
             return
 
-        root_logger.critical(
+        logger.critical(
             'Uncaught exception',
             exc_info=(exc_type, exc_value, exc_traceback),
         )
