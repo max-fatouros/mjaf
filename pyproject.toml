@@ -29,6 +29,7 @@ dev = [
 mjaf = "mjaf.__main__:main"
 
 [project.urls]
+Changelog = "https://github.com/max-fatouros/mjaf/blob/main/CHANGELOG.md"
 Homepage = "https://github.com/max-fatouros/mjaf"
 Issues = "https://github.com/max-fatouros/mjaf/issues"
 
