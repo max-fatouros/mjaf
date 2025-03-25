@@ -78,22 +78,23 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 
-def remove_handlers_recursively(parent_logger_name):
+def reset_loggers_recursively(parent_logger_name):
     """
     Remove all handlers from a logger and all its child loggers.
 
     Args:
         parent_logger_name: Name of the parent logger (e.g., 'app')
     """
-    def _clean_handlers(logger):
+    def _reset_logger(logger):
         """Helper to remove all handlers from a single logger."""
         log.debug(f'clean: {logger.name}')
+        logger.setLevel(logging.NOTSET)
         for handler in logger.handlers[:]:
             logger.removeHandler(handler)
             handler.close()
 
     # Clean the parent logger
-    _clean_handlers(logging.getLogger(parent_logger_name))
+    _reset_logger(logging.getLogger(parent_logger_name))
 
     # Find and clean all child loggers
 
@@ -104,7 +105,7 @@ def remove_handlers_recursively(parent_logger_name):
 
     for name, logger_obj in list(logging.Logger.manager.loggerDict.items()):
         if name.startswith(prefix) and isinstance(logger_obj, logging.Logger):
-            _clean_handlers(logger_obj)
+            _reset_logger(logger_obj)
 
 
 def set_handlers(
@@ -119,7 +120,7 @@ def set_handlers(
     logger = logging.getLogger(logger_name)
 
     # start from scratch
-    remove_handlers_recursively(logger_name)
+    reset_loggers_recursively(logger_name)
 
     if path is not None:
         path = pathlib.Path(path).resolve()
