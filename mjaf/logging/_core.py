@@ -14,19 +14,22 @@ traceback_console = rich.console.Console(stderr=True)
 
 
 # TODO: add options to use this
-class Logger:
+class PrintLogger:
     """
     https://stackoverflow.com/questions/14906764/how-to-redirect-stdout-to-both-file-and-console-with-scripting
     Writes the output from the print function to logs while still printing it to terminal
     """  # noqa E501
 
-    def __init__(self, file):
+    def __init__(self, logger):
         self.terminal = sys.stdout
-        self.log = open(file, 'w')
+        self.log = logger
+        # self.log = open(file, 'w')
 
     def write(self, message):
         self.terminal.write(message)
-        self.log.write(message)
+        # don't log extra extra newline from print statement
+        if message != '\n':
+            self.log.debug(message)
 
     def close(self):
         self.log.close()
@@ -88,7 +91,7 @@ def set_handlers(
     rotation_size: Annotated[int, 'MB'] = 10,
     rotations: int = 5,
     log_print_statements=False,
-):
+) -> None:
 
     level = level or LOG_LEVEL
 
@@ -127,6 +130,16 @@ def set_handlers(
     log.info(f'{level=}')
     if path is not None:
         log.info(f'Logging to {path}')
+
+ 
+
+    if log_print_statements:
+        if isinstance(sys.stdout, PrintLogger):
+            log.warning(
+                'You already set log_print_statements=True, you probably don\'t want to do that twice'
+            )
+        sys.stdout = PrintLogger(logger)
+
 
     def handle_exception(exc_type, exc_value, exc_traceback):
         if issubclass(exc_type, KeyboardInterrupt):
