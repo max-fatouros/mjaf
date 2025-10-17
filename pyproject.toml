@@ -12,7 +12,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
 ]
-dependencies = []
+dependencies = [
+    "rich",
+]
 description = "A collection of assorted utilites"
 name = "mjaf"
 readme = "README.md"
