@@ -3,6 +3,7 @@ import logging.handlers
 import pathlib
 import sys
 from typing import Annotated
+
 import rich
 import rich.traceback
 
@@ -84,6 +85,7 @@ class CustomFormatter(logging.Formatter):
         )
         return formatter.format(record)
 
+
 def set_handlers(
     logger_name: str = '',
     level: str | None = None,
@@ -132,15 +134,13 @@ def set_handlers(
     if path is not None:
         log.info(f'Logging to {path}')
 
- 
-
     if log_print_statements:
         if isinstance(sys.stdout, PrintLogger):
             log.warning(
-                'You already set log_print_statements=True, you probably don\'t want to do that twice'
+                'You already set log_print_statements=True'
+                ', you probably don\'t want to do that twice',
             )
         sys.stdout = PrintLogger(logger)
-
 
     def handle_exception(exc_type, exc_value, exc_traceback):
         if issubclass(exc_type, KeyboardInterrupt):
@@ -152,7 +152,6 @@ def set_handlers(
             exc_info=(exc_type, exc_value, exc_traceback),
         )
 
-
         exception_traceback = rich.traceback.Traceback.from_exception(
             exc_type,
             exc_value,
@@ -161,6 +160,7 @@ def set_handlers(
         traceback_console.print(exception_traceback)
 
     sys.excepthook = handle_exception
+
 
 if __name__ == '__main__':
     import mjaf
@@ -175,5 +175,3 @@ if __name__ == '__main__':
         log_print_statements=True,
     )
     logging.getLogger(__name__).warning('test')
-
-
