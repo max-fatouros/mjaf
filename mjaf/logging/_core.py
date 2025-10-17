@@ -114,6 +114,7 @@ def set_handlers(
         logger.addHandler(file_handler)
 
     # >>> Prints to terminal
+    # StreamHandler defaults to stderr
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.DEBUG)
     stream_handler.setFormatter(
