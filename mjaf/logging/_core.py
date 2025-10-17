@@ -161,3 +161,19 @@ def set_handlers(
         traceback_console.print(exception_traceback)
 
     sys.excepthook = handle_exception
+
+if __name__ == '__main__':
+    import mjaf
+    mjaf.logging.set_handlers(
+        __name__,
+        level='DEBUG',
+        log_print_statements=True,
+    )
+    mjaf.logging.set_handlers(
+        'root',
+        level='DEBUG',
+        log_print_statements=True,
+    )
+    logging.getLogger(__name__).warning('test')
+
+
