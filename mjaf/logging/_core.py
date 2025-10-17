@@ -3,10 +3,14 @@ import logging.handlers
 import pathlib
 import sys
 from typing import Annotated
+import rich
+import rich.traceback
 
 from mjaf._utils.constants import LOG_LEVEL
 
 log = logging.getLogger(__name__)
+
+traceback_console = rich.console.Console(stderr=True)
 
 
 # TODO: add options to use this
@@ -166,5 +170,13 @@ def set_handlers(
             'Uncaught exception',
             exc_info=(exc_type, exc_value, exc_traceback),
         )
+
+
+        exception_traceback = rich.traceback.Traceback.from_exception(
+            exc_type,
+            exc_value,
+            exc_traceback,
+        )
+        traceback_console.print(exception_traceback)
 
     sys.excepthook = handle_exception
